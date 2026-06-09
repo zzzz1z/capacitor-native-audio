@@ -1576,10 +1576,15 @@ commandCenter.previousTrackCommand.addTarget { [weak self] _ in
             let rawTime = asset.getCurrentTime()
             // Round to nearest 100ms (0.1 seconds)
             let currentTime = round(rawTime * 10) / 10
-            notifyListeners("currentTime", data: [
-                "currentTime": currentTime,
-                "assetId": asset.assetId
-            ])
+          let duration = asset.getDuration()
+var payload: [String: Any] = [
+    "currentTime": currentTime,
+    "assetId": asset.assetId
+]
+if duration.isFinite && duration > 0 {
+    payload["duration"] = duration
+}
+notifyListeners("currentTime", data: payload)
 
             if let fadeData = audioAssetData[asset.assetId],
                let fadeOut = fadeData["fadeOut"] as? Bool, fadeOut,
