@@ -373,23 +373,20 @@ public class NativeAudio: CAPPlugin, AVAudioPlayerDelegate, CAPBridgedPlugin {
             return .success
         }
 
-        // Skip forward command
-        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(value: 15)]
-        commandCenter.skipForwardCommand.isEnabled = true
-        commandCenter.skipForwardCommand.addTarget { [weak self] event in
-            guard let self else { return .commandFailed }
-            guard let skipEvent = event as? MPSkipIntervalCommandEvent else { return .commandFailed }
-            return self.handleSeekCommand(delta: skipEvent.interval)
-        }
+commandCenter.skipForwardCommand.isEnabled = false
+commandCenter.skipBackwardCommand.isEnabled = false
 
-        // Skip backward command
-        commandCenter.skipBackwardCommand.preferredIntervals = [NSNumber(value: 15)]
-        commandCenter.skipBackwardCommand.isEnabled = true
-        commandCenter.skipBackwardCommand.addTarget { [weak self] event in
-            guard let self else { return .commandFailed }
-            guard let skipEvent = event as? MPSkipIntervalCommandEvent else { return .commandFailed }
-            return self.handleSeekCommand(delta: -skipEvent.interval)
-        }
+commandCenter.nextTrackCommand.isEnabled = true
+commandCenter.nextTrackCommand.addTarget { [weak self] _ in
+    self?.notifyListeners("playbackState", data: ["assetId": self?.currentlyPlayingAssetId ?? "", "state": "nextTrack"])
+    return .success
+}
+
+commandCenter.previousTrackCommand.isEnabled = true
+commandCenter.previousTrackCommand.addTarget { [weak self] _ in
+    self?.notifyListeners("playbackState", data: ["assetId": self?.currentlyPlayingAssetId ?? "", "state": "previousTrack"])
+    return .success
+}
 
         // Scrub / change position command
         commandCenter.changePlaybackPositionCommand.isEnabled = true
