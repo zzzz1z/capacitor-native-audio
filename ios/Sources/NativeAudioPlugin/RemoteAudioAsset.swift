@@ -170,7 +170,7 @@ public class RemoteAudioAsset: AudioAsset {
                 validTime = lowerBound
             }
             let target = CMTime(seconds: validTime, preferredTimescale: Self.seekPreferredTimescale)
-            player.seek(to: target, toleranceBefore: .zero, toleranceAfter: .zero) { finished in
+            player.seek(to: target, toleranceBefore: .positiveInfinity, toleranceAfter: .positiveInfinity) { finished in
                 guard finished else { return }
                 completion?()
             }
