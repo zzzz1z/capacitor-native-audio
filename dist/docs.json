@@ -1,0 +1,1470 @@
+{
+  "api": {
+    "name": "NativeAudio",
+    "slug": "nativeaudio",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "configure",
+        "signature": "(options: ConfigureOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "ConfigureOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "ConfigureOptions}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Configure the audio player",
+        "complexTypes": [
+          "ConfigureOptions"
+        ],
+        "slug": "configure"
+      },
+      {
+        "name": "preload",
+        "signature": "(options: PreloadOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "PreloadOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "PreloadOptions}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Load an audio file",
+        "complexTypes": [
+          "PreloadOptions"
+        ],
+        "slug": "preload"
+      },
+      {
+        "name": "playOnce",
+        "signature": "(options: PlayOnceOptions) => Promise<PlayOnceResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "PlayOnceOptions"
+          }
+        ],
+        "returns": "Promise<PlayOnceResult>",
+        "tags": [
+          {
+            "name": "example",
+            "text": "```typescript\r\n// Simple one-shot playback\r\nawait NativeAudio.playOnce({ assetPath: 'audio/notification.mp3' });\r\n\r\n// Play and delete the file after completion\r\nawait NativeAudio.playOnce({\r\n  assetPath: 'file:///path/to/temp/audio.mp3',\r\n  isUrl: true,\r\n  deleteAfterPlay: true\r\n});\r\n\r\n// Get the assetId to control playback\r\nconst { assetId } = await NativeAudio.playOnce({\r\n  assetPath: 'audio/long-track.mp3',\r\n  autoPlay: true\r\n});\r\n// Later, you can stop it manually if needed\r\nawait NativeAudio.stop({ assetId });\r\n```"
+          },
+          {
+            "name": "since",
+            "text": "7.11.0"
+          },
+          {
+            "name": "param",
+            "text": "options"
+          },
+          {
+            "name": "link",
+            "text": "PlayOnceOptions}"
+          },
+          {
+            "name": "returns",
+            "text": "Object containing the generated assetId"
+          }
+        ],
+        "docs": "Play an audio file once with automatic cleanup\r\n\r\nMethod designed for simple, single-shot audio playback,\r\nsuch as notification sounds, UI feedback, or other short audio clips\r\nthat don't require manual state management.\r\n\r\n**Key Features:**\r\n- **Fire-and-forget**: No need to manually preload, play, stop, or unload\r\n- **Auto-cleanup**: Asset is automatically unloaded after playback completes\r\n- **Optional file deletion**: Can delete local files after playback (useful for temp files)\r\n- **Returns assetId**: Can still control playback if needed (pause, stop, etc.)\r\n\r\n**Use Cases:**\r\n- Notification sounds\r\n- UI sound effects (button clicks, alerts)\r\n- Short audio clips that play once\r\n- Temporary audio files that should be cleaned up\r\n\r\n**Comparison with regular play():**\r\n- `play()`: Requires manual preload, play, and unload steps\r\n- `playOnce()`: Handles everything automatically with a single call",
+        "complexTypes": [
+          "PlayOnceResult",
+          "PlayOnceOptions"
+        ],
+        "slug": "playonce"
+      },
+      {
+        "name": "isPreloaded",
+        "signature": "(options: PreloadOptions) => Promise<{ found: boolean; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "PreloadOptions"
+          }
+        ],
+        "returns": "Promise<{ found: boolean; }>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "6.1.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "Assets}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Check if an audio file is preloaded",
+        "complexTypes": [
+          "PreloadOptions"
+        ],
+        "slug": "ispreloaded"
+      },
+      {
+        "name": "play",
+        "signature": "(options: AssetPlayOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "AssetPlayOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "AssetPlayOptions}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Play an audio file",
+        "complexTypes": [
+          "AssetPlayOptions"
+        ],
+        "slug": "play"
+      },
+      {
+        "name": "pause",
+        "signature": "(options: AssetPauseOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "AssetPauseOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "AssetPauseOptions}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Pause an audio file",
+        "complexTypes": [
+          "AssetPauseOptions"
+        ],
+        "slug": "pause"
+      },
+      {
+        "name": "resume",
+        "signature": "(options: AssetResumeOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "AssetResumeOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "AssetResumeOptions}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Resume an audio file",
+        "complexTypes": [
+          "AssetResumeOptions"
+        ],
+        "slug": "resume"
+      },
+      {
+        "name": "loop",
+        "signature": "(options: Assets) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "Assets"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "Assets}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Stop an audio file",
+        "complexTypes": [
+          "Assets"
+        ],
+        "slug": "loop"
+      },
+      {
+        "name": "stop",
+        "signature": "(options: AssetStopOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "AssetStopOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "AssetStopOptions}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Stop an audio file",
+        "complexTypes": [
+          "AssetStopOptions"
+        ],
+        "slug": "stop"
+      },
+      {
+        "name": "unload",
+        "signature": "(options: Assets) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "Assets"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "Assets}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Unload an audio file",
+        "complexTypes": [
+          "Assets"
+        ],
+        "slug": "unload"
+      },
+      {
+        "name": "setVolume",
+        "signature": "(options: AssetVolume) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "AssetVolume"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "AssetVolume}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Set the volume of an audio file",
+        "complexTypes": [
+          "AssetVolume"
+        ],
+        "slug": "setvolume"
+      },
+      {
+        "name": "setRate",
+        "signature": "(options: AssetRate) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "AssetRate"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "AssetRate}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Set the rate of an audio file",
+        "complexTypes": [
+          "AssetRate"
+        ],
+        "slug": "setrate"
+      },
+      {
+        "name": "setCurrentTime",
+        "signature": "(options: AssetSetTime) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "AssetSetTime"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "6.5.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "AssetSetTime}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Set the current time of an audio file",
+        "complexTypes": [
+          "AssetSetTime"
+        ],
+        "slug": "setcurrenttime"
+      },
+      {
+        "name": "getCurrentTime",
+        "signature": "(options: Assets) => Promise<{ currentTime: number; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "Assets"
+          }
+        ],
+        "returns": "Promise<{ currentTime: number; }>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "Assets}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Get the current time of an audio file",
+        "complexTypes": [
+          "Assets"
+        ],
+        "slug": "getcurrenttime"
+      },
+      {
+        "name": "getDuration",
+        "signature": "(options: Assets) => Promise<{ duration: number; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "Assets"
+          }
+        ],
+        "returns": "Promise<{ duration: number; }>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "Assets}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Get the duration of an audio file in seconds",
+        "complexTypes": [
+          "Assets"
+        ],
+        "slug": "getduration"
+      },
+      {
+        "name": "isPlaying",
+        "signature": "(options: Assets) => Promise<{ isPlaying: boolean; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "Assets"
+          }
+        ],
+        "returns": "Promise<{ isPlaying: boolean; }>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0"
+          },
+          {
+            "name": "param",
+            "text": "option"
+          },
+          {
+            "name": "link",
+            "text": "Assets}"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Check if an audio file is playing",
+        "complexTypes": [
+          "Assets"
+        ],
+        "slug": "isplaying"
+      },
+      {
+        "name": "addListener",
+        "signature": "(eventName: 'complete', listenerFunc: CompletedListener) => Promise<PluginListenerHandle>",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "",
+            "type": "'complete'"
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "",
+            "type": "CompletedListener"
+          }
+        ],
+        "returns": "Promise<PluginListenerHandle>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "5.0.0\r\nreturn {@link CompletedEvent}"
+          }
+        ],
+        "docs": "Listen for complete event",
+        "complexTypes": [
+          "PluginListenerHandle",
+          "CompletedListener"
+        ],
+        "slug": "addlistenercomplete-"
+      },
+      {
+        "name": "addListener",
+        "signature": "(eventName: 'currentTime', listenerFunc: CurrentTimeListener) => Promise<PluginListenerHandle>",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "",
+            "type": "'currentTime'"
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "",
+            "type": "CurrentTimeListener"
+          }
+        ],
+        "returns": "Promise<PluginListenerHandle>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "6.5.0\r\nreturn {@link CurrentTimeEvent}"
+          }
+        ],
+        "docs": "Listen for current time updates\r\nEmits every 100ms while audio is playing",
+        "complexTypes": [
+          "PluginListenerHandle",
+          "CurrentTimeListener"
+        ],
+        "slug": "addlistenercurrenttime-"
+      },
+      {
+        "name": "addListener",
+        "signature": "(eventName: 'playbackState', listenerFunc: PlaybackStateListener) => Promise<PluginListenerHandle>",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "",
+            "type": "'playbackState'"
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "",
+            "type": "PlaybackStateListener"
+          }
+        ],
+        "returns": "Promise<PluginListenerHandle>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "8.3.15\r\nreturn {@link PlaybackStateEvent}"
+          }
+        ],
+        "docs": "Listen for playback state changes, including notification and lock-screen transport controls.\r\nEmitted by Android and iOS. The current Web implementation does not emit this event.",
+        "complexTypes": [
+          "PluginListenerHandle",
+          "PlaybackStateListener"
+        ],
+        "slug": "addlistenerplaybackstate-"
+      },
+      {
+        "name": "clearCache",
+        "signature": "() => Promise<void>",
+        "parameters": [],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "6.5.0"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Clear the audio cache for remote audio files",
+        "complexTypes": [],
+        "slug": "clearcache"
+      },
+      {
+        "name": "setDebugMode",
+        "signature": "(options: { enabled: boolean; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "- Options to enable or disable debug mode",
+            "type": "{ enabled: boolean; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "6.5.0"
+          },
+          {
+            "name": "param",
+            "text": "options - Options to enable or disable debug mode"
+          }
+        ],
+        "docs": "Set debug mode logging",
+        "complexTypes": [],
+        "slug": "setdebugmode"
+      },
+      {
+        "name": "getPluginVersion",
+        "signature": "() => Promise<{ version: string; }>",
+        "parameters": [],
+        "returns": "Promise<{ version: string; }>",
+        "tags": [
+          {
+            "name": "returns",
+            "text": "an Promise with version for this device"
+          },
+          {
+            "name": "throws",
+            "text": "An error if the something went wrong"
+          }
+        ],
+        "docs": "Get the native Capacitor plugin version",
+        "complexTypes": [],
+        "slug": "getpluginversion"
+      },
+      {
+        "name": "deinitPlugin",
+        "signature": "() => Promise<void>",
+        "parameters": [],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "7.7.0"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Deinitialize the plugin and restore original audio session settings\r\nThis method stops all playing audio and reverts any audio session changes made by the plugin\r\nUse this when you need to ensure compatibility with other audio plugins",
+        "complexTypes": [],
+        "slug": "deinitplugin"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "ConfigureOptions",
+      "slug": "configureoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "focus",
+          "tags": [],
+          "docs": "focus the audio with Audio Focus",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "background",
+          "tags": [],
+          "docs": "Play the audio in the background",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "ignoreSilent",
+          "tags": [],
+          "docs": "Ignore silent mode, works only on iOS setting this will nuke other audio apps",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "showNotification",
+          "tags": [
+            {
+              "text": "https ://github.com/Cap-go/capacitor-native-audio/issues/202",
+              "name": "see"
+            }
+          ],
+          "docs": "Show audio playback in the notification center (iOS and Android)\r\nWhen enabled, displays audio metadata (title, artist, album, artwork) in the system notification\r\nand Control Center (iOS) or lock screen.\r\n\r\n**Important iOS Behavior:**\r\nEnabling this option changes the audio session category to `.playback` with `.default` mode,\r\nwhich means your app's audio will **interrupt** other apps' audio (like background music from\r\nSpotify, Apple Music, etc.) instead of mixing with it. This is required for the Now Playing\r\ninfo to appear in Control Center and on the lock screen.\r\n\r\n**Trade-offs:**\r\n- `showNotification: true` → Shows Now Playing controls, but interrupts other audio\r\n- `showNotification: false` → Audio mixes with other apps, but no Now Playing controls\r\n\r\nUse this when your app is the primary audio source (music players, podcast apps, etc.).\r\nDisable this for secondary audio like sound effects or notification sounds where mixing\r\nwith background music is preferred.",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "backgroundPlayback",
+          "tags": [
+            {
+              "text": "false",
+              "name": "default"
+            },
+            {
+              "text": "Android",
+              "name": "platform"
+            },
+            {
+              "text": "8.2.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Enable background audio playback (Android only)\r\n\r\nWhen enabled, audio will continue playing when the app is backgrounded or the screen is locked.\r\nThe plugin will skip the automatic pause/resume logic that normally occurs when the app\r\nenters the background or returns to the foreground.\r\n\r\n**Important Android Requirements:**\r\nTo use background playback on Android, your app must:\r\n1. Declare the required permissions in `AndroidManifest.xml`:\r\n   - `<uses-permission android:name=\"android.permission.FOREGROUND_SERVICE\" />`\r\n   - `<uses-permission android:name=\"android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK\" />`\r\n   - `<uses-permission android:name=\"android.permission.WAKE_LOCK\" />`\r\n2. Start a Foreground Service with a media-style notification before backgrounding\r\n   (the plugin does not automatically create or manage the foreground service)\r\n3. Use `showNotification: true` to display playback controls in the notification\r\n\r\n**Usage Example:**\r\n```typescript\r\nawait NativeAudio.configure({\r\n  backgroundPlayback: true,\r\n  showNotification: true\r\n});\r\n// Start your foreground service here\r\n// Then preload and play audio as normal\r\n```",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
+      "name": "PreloadOptions",
+      "slug": "preloadoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetPath",
+          "tags": [],
+          "docs": "Path to the audio file, relative path of the file, absolute url (file://) or remote url (https://)\r\nSupported formats:\r\n- MP3, WAV (all platforms)\r\n- M3U8/HLS streams (iOS and Android)",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "volume",
+          "tags": [],
+          "docs": "Volume of the audio, between 0.1 and 1.0",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "audioChannelNum",
+          "tags": [],
+          "docs": "Audio channel number, default is 1",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "isUrl",
+          "tags": [],
+          "docs": "Is the audio file a URL, pass true if assetPath is a `file://` url\r\nor a streaming URL (m3u8)",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "notificationMetadata",
+          "tags": [
+            {
+              "text": "NotificationMetadata",
+              "name": "see"
+            }
+          ],
+          "docs": "Metadata to display in the notification center when audio is playing.\r\nOnly used when `showNotification: true` is set in `configure()`.\r\n\r\nSee {@link ConfigureOptions.showNotification} for important details about\r\nhow this affects audio mixing behavior on iOS.",
+          "complexTypes": [
+            "NotificationMetadata"
+          ],
+          "type": "NotificationMetadata"
+        },
+        {
+          "name": "headers",
+          "tags": [
+            {
+              "text": "7.10.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Custom HTTP headers to include when fetching remote audio files.\r\nOnly used when isUrl is true and assetPath is a remote URL (http/https).\r\nExample: { 'x-api-key': 'abc123', 'Authorization': 'Bearer token' }",
+          "complexTypes": [
+            "Record"
+          ],
+          "type": "Record<string, string>"
+        }
+      ]
+    },
+    {
+      "name": "NotificationMetadata",
+      "slug": "notificationmetadata",
+      "docs": "Metadata to display in the notification center, Control Center (iOS), and lock screen\r\nwhen `showNotification` is enabled in `configure()`.\r\n\r\nNote: This metadata will only be displayed if `showNotification: true` is set in the\r\n`configure()` method. See {@link ConfigureOptions.showNotification} for important\r\nbehavior details about audio mixing on iOS.",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "title",
+          "tags": [],
+          "docs": "The title to display in the notification center",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "artist",
+          "tags": [],
+          "docs": "The artist name to display in the notification center",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "album",
+          "tags": [],
+          "docs": "The album name to display in the notification center",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "artworkUrl",
+          "tags": [],
+          "docs": "URL or local path to the artwork/album art image",
+          "complexTypes": [],
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "PlayOnceResult",
+      "slug": "playonceresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "The internally generated asset ID for this playback\r\nCan be used to control playback (pause, stop, etc.) before completion",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "PlayOnceOptions",
+      "slug": "playonceoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetPath",
+          "tags": [],
+          "docs": "Path to the audio file, relative path of the file, absolute url (file://) or remote url (https://)\r\nSupported formats:\r\n- MP3, WAV (all platforms)\r\n- M3U8/HLS streams (iOS and Android)",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "volume",
+          "tags": [
+            {
+              "text": "1.0",
+              "name": "default"
+            }
+          ],
+          "docs": "Volume of the audio, between 0.1 and 1.0",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "isUrl",
+          "tags": [
+            {
+              "text": "false",
+              "name": "default"
+            }
+          ],
+          "docs": "Is the audio file a URL, pass true if assetPath is a `file://` url\r\nor a streaming URL (m3u8)",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "autoPlay",
+          "tags": [
+            {
+              "text": "true",
+              "name": "default"
+            }
+          ],
+          "docs": "Automatically start playback after loading",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "deleteAfterPlay",
+          "tags": [
+            {
+              "text": "false",
+              "name": "default"
+            },
+            {
+              "text": "7.11.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Delete the audio file from disk after playback completes\r\nOnly works for local files (file:// URLs), ignored for remote URLs",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "notificationMetadata",
+          "tags": [
+            {
+              "text": "NotificationMetadata *",
+              "name": "see"
+            },
+            {
+              "text": "7.10.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Metadata to display in the notification center when audio is playing.\r\nOnly used when `showNotification: true` is set in `configure()`.\r\n\r\nSee {@link ConfigureOptions.showNotification} for important details about\r\nhow this affects audio mixing behavior on iOS.",
+          "complexTypes": [
+            "NotificationMetadata"
+          ],
+          "type": "NotificationMetadata"
+        },
+        {
+          "name": "headers",
+          "tags": [
+            {
+              "text": "7.10.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Custom HTTP headers to include when fetching remote audio files.\r\nOnly used when isUrl is true and assetPath is a remote URL (http/https).\r\nExample: { 'x-api-key': 'abc123', 'Authorization': 'Bearer token' }",
+          "complexTypes": [
+            "Record"
+          ],
+          "type": "Record<string, string>"
+        }
+      ]
+    },
+    {
+      "name": "AssetPlayOptions",
+      "slug": "assetplayoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "time",
+          "tags": [],
+          "docs": "Time to start playing the audio, in seconds",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "delay",
+          "tags": [],
+          "docs": "Delay to start playing the audio, in seconds",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "volume",
+          "tags": [],
+          "docs": "Volume of the audio, between 0.1 and 1.0",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "fadeIn",
+          "tags": [],
+          "docs": "Whether to fade in the audio",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "fadeOut",
+          "tags": [],
+          "docs": "Whether to fade out the audio",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "fadeInDuration",
+          "tags": [],
+          "docs": "Fade in duration in seconds.\r\nOnly used if fadeIn is true.\r\nDefault is 1s.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "fadeOutDuration",
+          "tags": [],
+          "docs": "Fade out duration in seconds.\r\nOnly used if fadeOut is true.\r\nDefault is 1s.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "fadeOutStartTime",
+          "tags": [],
+          "docs": "Time in seconds from the start of the audio to start fading out.\r\nOnly used if fadeOut is true.\r\nDefault is fadeOutDuration before end of audio.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AssetPauseOptions",
+      "slug": "assetpauseoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "fadeOut",
+          "tags": [],
+          "docs": "Whether to fade out the audio before pausing",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "fadeOutDuration",
+          "tags": [],
+          "docs": "Fade out duration in seconds.\r\nDefault is 1s.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AssetResumeOptions",
+      "slug": "assetresumeoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "fadeIn",
+          "tags": [],
+          "docs": "Whether to fade in the audio during resume",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "fadeInDuration",
+          "tags": [],
+          "docs": "Fade in duration in seconds.\r\nDefault is 1s.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        }
+      ]
+    },
+    {
+      "name": "Assets",
+      "slug": "assets",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "AssetStopOptions",
+      "slug": "assetstopoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "fadeOut",
+          "tags": [],
+          "docs": "Whether to fade out the audio before stopping",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "fadeOutDuration",
+          "tags": [],
+          "docs": "Fade out duration in seconds.\r\nDefault is 1s.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AssetVolume",
+      "slug": "assetvolume",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "volume",
+          "tags": [],
+          "docs": "Volume of the audio, between 0.1 and 1.0",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "duration",
+          "tags": [],
+          "docs": "Time over which to fade to the target volume, in seconds. Default is 0s (immediate).",
+          "complexTypes": [],
+          "type": "number | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AssetRate",
+      "slug": "assetrate",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "rate",
+          "tags": [],
+          "docs": "Rate of the audio, between 0.1 and 1.0",
+          "complexTypes": [],
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "AssetSetTime",
+      "slug": "assetsettime",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id, unique identifier of the file",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "time",
+          "tags": [],
+          "docs": "Time to set the audio, in seconds",
+          "complexTypes": [],
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "PluginListenerHandle",
+      "slug": "pluginlistenerhandle",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "remove",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "() => Promise<void>"
+        }
+      ]
+    },
+    {
+      "name": "CompletedEvent",
+      "slug": "completedevent",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [
+            {
+              "text": "5.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Emit when a play completes",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "CurrentTimeEvent",
+      "slug": "currenttimeevent",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "currentTime",
+          "tags": [
+            {
+              "text": "6.5.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Current time of the audio in seconds",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "assetId",
+          "tags": [
+            {
+              "text": "6.5.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Asset Id of the audio",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "PlaybackStateEvent",
+      "slug": "playbackstateevent",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "assetId",
+          "tags": [],
+          "docs": "Asset Id of the audio",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "tags": [],
+          "docs": "Resolved playback state after a local or remote transport action.",
+          "complexTypes": [
+            "PlaybackStateValue"
+          ],
+          "type": "PlaybackStateValue"
+        },
+        {
+          "name": "reason",
+          "tags": [],
+          "docs": "Reason for the state change, for example `play`, `pause`, `remotePlay`, or `complete`.",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "isPlaying",
+          "tags": [],
+          "docs": "Whether the asset is currently playing.",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "currentTime",
+          "tags": [],
+          "docs": "Current playback position in seconds when available.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "duration",
+          "tags": [],
+          "docs": "Total playback duration in seconds when available.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [
+    {
+      "name": "Record",
+      "slug": "record",
+      "docs": "Construct a type with a set of properties K of type T",
+      "types": [
+        {
+          "text": "{\r\n    [P in K]: T;\r\n}",
+          "complexTypes": [
+            "K",
+            "T"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CompletedListener",
+      "slug": "completedlistener",
+      "docs": "",
+      "types": [
+        {
+          "text": "(state: CompletedEvent): void",
+          "complexTypes": [
+            "CompletedEvent"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CurrentTimeListener",
+      "slug": "currenttimelistener",
+      "docs": "",
+      "types": [
+        {
+          "text": "(state: CurrentTimeEvent): void",
+          "complexTypes": [
+            "CurrentTimeEvent"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PlaybackStateListener",
+      "slug": "playbackstatelistener",
+      "docs": "",
+      "types": [
+        {
+          "text": "(state: PlaybackStateEvent): void",
+          "complexTypes": [
+            "PlaybackStateEvent"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PlaybackStateValue",
+      "slug": "playbackstatevalue",
+      "docs": "",
+      "types": [
+        {
+          "text": "'playing'",
+          "complexTypes": []
+        },
+        {
+          "text": "'paused'",
+          "complexTypes": []
+        },
+        {
+          "text": "'stopped'",
+          "complexTypes": []
+        }
+      ]
+    }
+  ],
+  "pluginConfigs": []
+}
