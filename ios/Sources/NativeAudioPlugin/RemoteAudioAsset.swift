@@ -38,6 +38,7 @@ public class RemoteAudioAsset: AudioAsset {
                 self.playerItems.append(playerItem)
                 self.players.append(player)
 
+let capturedAssetId = assetId
 let durationObserver = playerItem.observe(\.status) { [weak self] item, _ in
     guard let self else { return }
     self.owner?.executeOnAudioQueue {
@@ -46,14 +47,28 @@ let durationObserver = playerItem.observe(\.status) { [weak self] item, _ in
             if self.duration.isFinite && self.duration > 0 {
                 self.owner?.notifyListeners("currentTime", data: [
                     "currentTime": self.getCurrentTime(),
-                    "assetId": self.assetId,
+                    "assetId": capturedAssetId,
                     "duration": self.duration
                 ])
             }
         }
     }
 }
-                self.playerObservers.append(durationObserver)
+self.playerObservers.append(durationObserver)
+
+let itemDurationObserver = playerItem.observe(\.duration) { [weak self] item, _ in
+    guard let self else { return }
+    let dur = item.duration.seconds
+    if dur.isFinite && dur > 0 {
+        self.owner?.notifyListeners("currentTime", data: [
+            "currentTime": self.getCurrentTime(),
+            "assetId": capturedAssetId,
+            "duration": dur
+        ])
+    }
+}
+self.playerObservers.append(itemDurationObserver)
+}
 
                 let observer = player.observe(\.timeControlStatus) { [weak self, weak player] observedPlayer, _ in
                     guard let self, let player, player === observedPlayer else { return }
