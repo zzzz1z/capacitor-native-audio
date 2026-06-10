@@ -38,14 +38,21 @@ public class RemoteAudioAsset: AudioAsset {
                 self.playerItems.append(playerItem)
                 self.players.append(player)
 
-                let durationObserver = playerItem.observe(\.status) { [weak self] item, _ in
-                    guard let self else { return }
-                    self.owner?.executeOnAudioQueue {
-                        if item.status == .readyToPlay {
-                            self.duration = item.duration.seconds
-                        }
-                    }
-                }
+let durationObserver = playerItem.observe(\.status) { [weak self] item, _ in
+    guard let self else { return }
+    self.owner?.executeOnAudioQueue {
+        if item.status == .readyToPlay {
+            self.duration = item.duration.seconds
+            if self.duration.isFinite && self.duration > 0 {
+                self.owner?.notifyListeners("currentTime", data: [
+                    "currentTime": self.getCurrentTime(),
+                    "assetId": self.assetId,
+                    "duration": self.duration
+                ])
+            }
+        }
+    }
+}
                 self.playerObservers.append(durationObserver)
 
                 let observer = player.observe(\.timeControlStatus) { [weak self, weak player] observedPlayer, _ in
