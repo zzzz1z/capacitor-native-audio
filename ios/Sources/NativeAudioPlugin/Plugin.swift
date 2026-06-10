@@ -102,22 +102,6 @@ public class NativeAudio: CAPPlugin, AVAudioPlayerDelegate, CAPBridgedPlugin {
         NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            // When entering background, automatically deactivate audio session if not playing any audio
-            strongSelf.audioQueue.sync {
-                // Check if there are any playing assets
-                let hasPlayingAssets = strongSelf.audioList.values.contains { asset in
-                    if let audioAsset = asset as? AudioAsset {
-                        return audioAsset.isPlaying()
-                    }
-                    return false
-                }
-
-                // Only deactivate if we have no playing assets AND no other audio is active
-                // This prevents interfering with VoIP calls or other audio sessions
-                if !hasPlayingAssets && !strongSelf.session.isOtherAudioPlaying && strongSelf.session.secondaryAudioShouldBeSilencedHint == false {
-                    strongSelf.endSession()
-                }
-            }
         }
     }
 
