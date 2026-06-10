@@ -9,6 +9,7 @@ public class RemoteAudioAsset: AudioAsset {
     var notificationObservers: [NSObjectProtocol] = []
     var duration: TimeInterval = 0
     var asset: AVURLAsset?
+    var onDurationReady: ((TimeInterval) -> Void)?
     private var logger = Logger(logTag: "RemoteAudioAsset")
     static let staticLogger = Logger(logTag: "RemoteAudioAsset")
 
@@ -59,16 +60,12 @@ self.playerObservers.append(durationObserver)
 let itemDurationObserver = playerItem.observe(\.duration) { [weak self] item, _ in
     guard let self else { return }
     let dur = item.duration.seconds
-    if dur.isFinite && dur > 0 {
-        self.owner?.notifyListeners("currentTime", data: [
-            "currentTime": self.getCurrentTime(),
-            "assetId": capturedAssetId,
-            "duration": dur
-        ])
+    if dur.isFinite && !dur.isNaN && dur > 0 {
+        self.onDurationReady?(dur)
+        self.onDurationReady = nil
     }
 }
 self.playerObservers.append(itemDurationObserver)
-}
 
                 let observer = player.observe(\.timeControlStatus) { [weak self, weak player] observedPlayer, _ in
                     guard let self, let player, player === observedPlayer else { return }

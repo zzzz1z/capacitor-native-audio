@@ -928,11 +928,21 @@ commandCenter.previousTrackCommand.addTarget { [weak self] _ in
                             )
                         }
 
-                        if self.showNotification {
-                            self.currentlyPlayingAssetId = audioId
-                            self.updateNowPlayingInfo(audioId: audioId, audioAsset: audioAsset)
-                            self.updatePlaybackState(isPlaying: true)
-                        }
+if self.showNotification {
+    self.currentlyPlayingAssetId = audioId
+    self.updateNowPlayingInfo(audioId: audioId, audioAsset: audioAsset)
+    self.updatePlaybackState(isPlaying: true)
+    if let remoteAsset = audioAsset as? RemoteAudioAsset {
+        remoteAsset.onDurationReady = { [weak self] duration in
+            guard let self, self.currentlyPlayingAssetId == audioId else { return }
+            DispatchQueue.main.async {
+                var info = MPNowPlayingInfoCenter.default().nowPlayingInfo ?? [String: Any]()
+                info[MPMediaItemPropertyPlaybackDuration] = duration
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+            }
+        }
+    }
+}
                         self.notifyPlaybackState(assetId: audioId, reason: "play", state: .playing, audioAsset: audioAsset)
                         call.resolve()
                     }
