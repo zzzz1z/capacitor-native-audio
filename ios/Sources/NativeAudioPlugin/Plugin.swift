@@ -1412,16 +1412,25 @@ if self.showNotification {
                             }
                         }
                     }
-                    let remoteAudioAsset = RemoteAudioAsset(
-                        owner: self,
-                        withAssetId: audioId,
-                        withPath: assetPath,
-                        withChannels: channels,
-                        withVolume: volume,
-                        withHeaders: headers
-                    )
-                    self.audioList[audioId] = remoteAudioAsset
-                    call.resolve()
+let remoteAudioAsset = RemoteAudioAsset(
+    owner: self,
+    withAssetId: audioId,
+    withPath: assetPath,
+    withChannels: channels,
+    withVolume: volume,
+    withHeaders: headers
+)
+remoteAudioAsset.onDurationReady = { [weak self] duration in
+    guard let self else { return }
+    DispatchQueue.main.async {
+        guard MPNowPlayingInfoCenter.default().nowPlayingInfo != nil else { return }
+        var info = MPNowPlayingInfoCenter.default().nowPlayingInfo ?? [String: Any]()
+        info[MPMediaItemPropertyPlaybackDuration] = duration
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+    }
+}
+self.audioList[audioId] = remoteAudioAsset
+call.resolve()
                     return
                 }
             } else if isLocalUrl == false {
