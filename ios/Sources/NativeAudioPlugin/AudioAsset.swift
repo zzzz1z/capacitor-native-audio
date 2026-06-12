@@ -375,7 +375,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
         dispatchedCompleteMap[assetId] = false
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            let timer = Timer(timeInterval: 0.1, repeats: true) { [weak self] _ in
+            let timer = Timer(timeInterval: 0.5, repeats: true) { [weak self] _ in
                 guard let self, let owner else {
                     self?.stopCurrentTimeUpdates()
                     return
@@ -387,7 +387,8 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
                 }
             }
             self.currentTimeTimer = timer
-            RunLoop.current.add(timer, forMode: .common)
+            timer.tolerance = 0.1
+RunLoop.current.add(timer, forMode: .common)
         }
     }
 
